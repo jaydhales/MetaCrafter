@@ -1,7 +1,5 @@
 # Token Contract (Metacrafters challenge)
 
-Simple overview of use/purpose.
-
 ## Project Requirement
 
 - Your contract will have public variables that store the details about your coin (Token Name, Token Abbrv., Total Supply)
