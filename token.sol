@@ -16,27 +16,31 @@ pragma solidity 0.8.21;
 */
 
 contract MyToken {
-
     // public variables here
     string public tokenName = "JayToken";
     string public tokenAbbrv = "JTK";
     uint256 public totalSupply = 0;
 
     // mapping variable here
-    mapping (address => uint) public balances;
+    mapping(address => uint256) public balances;
 
     // mint function
-    function mint(address _to, uint _value) public  {
+    function mint(address _to, uint256 _value) public {
         totalSupply += _value;
         balances[_to] += _value;
     }
 
     // burn function
-    function burn (address _from, uint _value) public  {
-        if (balances[_from] >= _value) {
-            totalSupply -= _value;
-            balances[_from] -= _value;
-        }
+    function burn(uint256 _value) public {
+        if (balances[msg.sender] < _value) revert("Insufficient Balance");
+        totalSupply -= _value;
+        balances[msg.sender] -= _value;
     }
 
+    // Custom Function
+    function transfer(address _to, uint256 _value) public {
+        if (balances[msg.sender] < _value) revert("Insufficient Balance");
+        balances[msg.sender] -= _value;
+        balances[_to] += _value;
+    }
 }
